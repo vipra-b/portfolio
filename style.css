@@ -71,7 +71,7 @@ input, textarea, button, select {
 }
 
 .color-scheme {
-    position: absolute;
+    position: fixed;
     top: 1rem;
     right: 1rem;
     font-size: 80%;
