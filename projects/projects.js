@@ -6,7 +6,7 @@ const projectsTitle = document.querySelector('.projects-title');
 
 if (projectsTitle) {
   const count = Array.isArray(projects) ? projects.length : 0;
-  projectsTitle.textContent = `Projects (${count})`;
+  projectsTitle.textContent = `${count} project${count === 1 ? '' : 's'}`;
 }
 
 renderProjects(projects, projectsContainer, 'h2');
