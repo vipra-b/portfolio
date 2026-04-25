@@ -7,7 +7,7 @@ const projectsContainer = document.querySelector('.projects');
 
 renderProjects(latestProjects, projectsContainer, 'h2');
 
-const githubData = await fetchGitHubData('vipra-b');
+const githubData = await fetchGithubData('vipra-b');
 const profileStatsContent = document.querySelector(
   '#profile-stats .profile-stats__content',
 );
