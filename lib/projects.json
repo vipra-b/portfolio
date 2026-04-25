@@ -1,5 +1,10 @@
 [
     {
+        "title": "Ultra-processed foods: category comparison (FPro)",
+        "image": "images/ultraprocessed-foods-fpro.png",
+        "description": "A horizontal bar chart comparing how likely grocery categories (Walmart, Target, Whole Foods) are to be highly ultra-processed (FPro > 0.8). Highlights that cakes and baked goods top the list while produce, cheese, and jerky are among the least processed."
+    },
+    {
         "title": "Lorem ipsum dolor sit",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Quisquam, voluptatum."

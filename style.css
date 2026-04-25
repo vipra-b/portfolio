@@ -77,6 +77,71 @@ input, textarea, button, select {
     font-size: 80%;
 }
 
+/* Home: GitHub profile stats (collapsible) */
+#profile-stats.profile-stats {
+    margin: 1.5em 0;
+    --profile-stats-border: oklch(50% 10% 200 / 40%);
+    border: 1px solid var(--profile-stats-border);
+    border-radius: 0.4em;
+    padding: 0.35em 0.75em 0.75em;
+    background: color-mix(in oklch, canvas, var(--color-accent) 3%);
+}
+
+.profile-stats details[open] {
+    padding-bottom: 0.15em;
+}
+
+.profile-stats__header {
+    display: list-item;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.05em;
+    list-style: none;
+    padding: 0.2em 0.25em;
+    border-radius: 0.25em;
+}
+
+.profile-stats__header::after {
+    content: " \25BE";
+    float: right;
+    opacity: 0.7;
+    transition: transform 0.15s ease;
+}
+
+details[open] .profile-stats__header::after {
+    transform: rotate(180deg);
+}
+
+.profile-stats__content {
+    margin-top: 0.6em;
+}
+
+.profile-stats__content dl {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4em 0.75em;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-stats__content dt {
+    grid-row: 1;
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.85em;
+    text-align: center;
+    color: color-mix(in oklch, canvastext 70%, var(--color-accent) 30%);
+}
+
+.profile-stats__content dd {
+    grid-row: 2;
+    margin: 0;
+    font-size: 1.25em;
+    font-weight: 600;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
 /* Step 4: Projects grid */
 .projects {
     display: grid;
@@ -90,7 +155,7 @@ input, textarea, button, select {
     grid-row: span 3;
 }
 
-.projects article h2 {
+.projects article > :is(h1, h2, h3, h4, h5, h6) {
     margin: 0;
 }
 
