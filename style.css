@@ -142,6 +142,107 @@ details[open] .profile-stats__header::after {
     font-variant-numeric: tabular-nums;
 }
 
+/* Lab 5: project year */
+.project-text {
+    min-width: 0;
+}
+
+.project-year {
+    margin: 0.35em 0 0;
+    font-family: Baskerville, "Times New Roman", serif;
+    font-variant-numeric: oldstyle-nums;
+    color: oklch(50% 0.02 260);
+    font-size: 0.95em;
+}
+
+/* Lab 5: D3 pie + legend */
+.projects-chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    margin-block: 0.5rem 1rem;
+}
+
+#projects-pie-plot {
+    max-width: 20em;
+    flex: 0 0 auto;
+    margin-block: 0;
+    overflow: visible;
+}
+
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+    opacity: 0.5;
+}
+
+#projects-pie-plot path {
+    transition: opacity 300ms ease, fill 200ms ease, filter 200ms ease;
+    cursor: pointer;
+}
+
+/* Year selection: keep all slices; highlight one, mute the rest */
+#projects-pie-plot path.pie-slice--selected {
+    fill: oklch(72% 0.26 350) !important;
+    opacity: 1;
+    filter: none;
+}
+
+#projects-pie-plot path.pie-slice--muted {
+    opacity: 0.42;
+    filter: grayscale(0.65);
+}
+
+.legend {
+    flex: 1;
+    min-width: 12em;
+    list-style: none;
+    margin: 0;
+    padding: 0.65em 0.85em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+    gap: 0.5em 0.85em;
+    border: 1px solid oklch(50% 10% 200 / 40%);
+    border-radius: 0.35em;
+    background: color-mix(in oklch, canvas, var(--color-accent) 3%);
+}
+
+.legend__item {
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+    cursor: pointer;
+    margin: 0;
+}
+
+.legend__item .swatch {
+    flex: 0 0 auto;
+    width: 0.75em;
+    aspect-ratio: 1 / 1;
+    border-radius: 2px;
+    background-color: var(--color);
+    display: inline-block;
+}
+
+.legend__item--selected {
+    --color: oklch(72% 0.26 350) !important;
+    opacity: 1;
+    filter: none;
+}
+
+.legend__item--muted {
+    opacity: 0.48;
+    filter: grayscale(0.55);
+}
+
+.searchBar {
+    width: min(100%, 28rem);
+    margin-bottom: 1em;
+    font: inherit;
+    padding: 0.45em 0.65em;
+    border-radius: 0.35em;
+    border: 1px solid oklch(50% 10% 200 / 40%);
+}
+
 /* Step 4: Projects grid */
 .projects {
     display: grid;
