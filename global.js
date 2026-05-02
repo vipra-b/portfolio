@@ -119,9 +119,15 @@ export function renderProjects(project, containerElement, headingLevel = 'h2') {
         ? rawSrc
         : `${BASE_PATH}${String(rawSrc).replace(/^\//, '')}`;
     img.alt = item.title;
+    const textWrap = document.createElement('div');
+    textWrap.className = 'project-text';
     const p = document.createElement('p');
     p.textContent = item.description;
-    article.append(heading, img, p);
+    const yearEl = document.createElement('p');
+    yearEl.className = 'project-year';
+    yearEl.textContent = item.year;
+    textWrap.append(p, yearEl);
+    article.append(heading, img, textWrap);
     containerElement.appendChild(article);
   }
 }
