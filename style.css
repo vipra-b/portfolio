@@ -346,3 +346,126 @@ section:last-child a {
 section:last-child a:hover {
     text-decoration: underline;
 }
+
+/* Lab 6: meta page — summary stats */
+.stats {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.35em 1em;
+    margin: 1em 0 1.25em;
+    padding: 0;
+    max-width: 42rem;
+}
+
+.stats dt {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.88em;
+    color: color-mix(in oklch, canvastext 65%, var(--color-accent) 35%);
+}
+
+.stats dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.language-breakdown.stats {
+    max-width: none;
+}
+
+dl.info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.3em 1em;
+    margin: 0;
+    padding: 0.65em 0.85em;
+    transition-duration: 500ms;
+    transition-property: opacity, visibility;
+}
+
+dl.info dt {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.88em;
+    color: color-mix(in oklch, canvastext 65%, var(--color-accent) 35%);
+}
+
+dl.info dd {
+    margin: 0;
+}
+
+dl.info[hidden]:not(:hover, :focus-within) {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.tooltip {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+    z-index: 100;
+    pointer-events: none;
+    max-width: min(22rem, calc(100vw - 2rem));
+    background-color: color-mix(in oklch, canvas 92%, canvastext 8%);
+    border: 1px solid oklch(50% 10% 200 / 35%);
+    border-radius: 0.45em;
+    box-shadow: 0 0.35em 1em oklch(0% 0 0 / 12%);
+    backdrop-filter: blur(6px);
+}
+
+#chart svg {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+#chart .gridlines line {
+    stroke: oklch(55% 12% 250 / 22%);
+}
+
+#chart circle {
+    transition: 200ms;
+    transform-origin: center;
+    transform-box: fill-box;
+    cursor: pointer;
+}
+
+#chart circle:hover {
+    transform: scale(1.5);
+}
+
+#chart circle.selected {
+    fill: #ff6b6b !important;
+}
+
+.chart-hint {
+    font-size: 0.92em;
+    color: color-mix(in oklch, canvastext 78%, var(--color-accent) 22%);
+    max-width: 52rem;
+    margin: 0 0 0.75em;
+    line-height: 1.45;
+}
+
+.chart-hint kbd {
+    font: inherit;
+    font-size: 0.9em;
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+    border: 1px solid oklch(50% 10% 200 / 35%);
+    background: color-mix(in oklch, canvas, canvastext 6%);
+}
+
+@keyframes marching-ants {
+    to {
+        stroke-dashoffset: -8;
+    }
+}
+
+.selection {
+    fill-opacity: 0.1;
+    stroke: black;
+    stroke-opacity: 0.7;
+    stroke-dasharray: 5 3;
+    animation: marching-ants 2s linear infinite;
+}
