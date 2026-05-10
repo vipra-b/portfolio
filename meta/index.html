@@ -9,19 +9,12 @@
 <body>
   <h1>Code meta-analysis</h1>
   <p>
-    Statistics and charts are computed from <code>meta/loc.csv</code>, produced by
-    <a href="https://www.npmjs.com/package/elocuent">elocuent</a> over this repository.
-    Re-run <code>npx elocuent -d . -o meta/loc.csv --spaces 2</code> after notable changes.
+    This page visualizes the commit history and language composition of the GitHub repository and code behind this website! You can use the brush tool to drag a rectangle on a selection of commits that you want to group and look at together.
   </p>
 
   <div id="stats"></div>
 
   <h2>Commits by time of day</h2>
-  <p class="chart-hint">
-    <strong>Brush:</strong> drag a rectangle on the plot to select commits in that region.
-    <strong>Click:</strong> a dot to highlight or unhighlight that commit (works together with the brush).
-    Press <kbd>Esc</kbd> to clear click-selections.
-  </p>
   <div id="chart"></div>
 
   <p id="selection-count">No commits selected</p>
