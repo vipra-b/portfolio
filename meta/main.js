@@ -43,7 +43,6 @@ function processCommits(data) {
 
 function renderCommitInfo(data, commits) {
   const numFiles = d3.group(data, (d) => d.file).size;
-  const numAuthors = d3.group(data, (d) => d.author).size;
   const avgLineLen = d3.mean(data, (d) => d.length);
 
   const fileLineCounts = d3.rollups(
@@ -70,9 +69,6 @@ function renderCommitInfo(data, commits) {
 
   dl.append('dt').text('Files tracked');
   dl.append('dd').text(numFiles);
-
-  dl.append('dt').text('Contributors');
-  dl.append('dd').text(numAuthors);
 
   dl.append('dt').text('Avg line length');
   dl.append('dd').text(
@@ -162,7 +158,7 @@ function renderScatterPlot(data, commits) {
   const rScale = d3
     .scaleSqrt()
     .domain([minLines ?? 0, maxLines ?? 1])
-    .range([2, 30]);
+    .range([4, 30]);
 
   const svg = d3
     .select('#chart')
@@ -258,6 +254,24 @@ function renderScatterPlot(data, commits) {
     }
   }
 
+  function brushed(event) {
+    brushSelection = event.selection;
+    syncSelectionUi();
+  }
+
+  const brushBehavior = d3
+    .brush()
+    .extent([
+      [usableArea.left, usableArea.top],
+      [usableArea.right, usableArea.bottom],
+    ])
+    .on('start brush end', brushed);
+
+  svg.call(brushBehavior);
+
+  // Selection handles above overlay (within brush group).
+  svg.select('.brush').selectAll('.overlay ~ *').raise();
+
   const dots = svg.append('g').attr('class', 'dots');
 
   dots
@@ -269,6 +283,10 @@ function renderScatterPlot(data, commits) {
     .attr('r', (d) => rScale(d.totalLines))
     .attr('fill', defaultFill)
     .style('fill-opacity', 0.7)
+    .attr('pointer-events', 'all')
+    .on('pointerdown', (event) => {
+      event.stopPropagation();
+    })
     .on('click', (event, d) => {
       event.stopPropagation();
       if (manuallySelectedIds.has(d.id)) {
@@ -291,31 +309,22 @@ function renderScatterPlot(data, commits) {
       updateTooltipVisibility(false);
     });
 
-  function brushed(event) {
-    brushSelection = event.selection;
+  syncSelectionUi();
+
+  function clearAllChartSelection(event) {
+    const isEsc =
+      event.key === 'Escape' ||
+      event.key === 'Esc' ||
+      event.code === 'Escape' ||
+      event.keyCode === 27;
+    if (!isEsc) return;
+    event.preventDefault();
+    manuallySelectedIds.clear();
+    svg.call(brushBehavior.move, null);
     syncSelectionUi();
   }
 
-  svg
-    .call(
-      d3
-        .brush()
-        .extent([
-          [usableArea.left, usableArea.top],
-          [usableArea.right, usableArea.bottom],
-        ])
-        .on('start brush end', brushed),
-    );
-
-  svg.selectAll('.dots, .overlay ~ *').raise();
-
-  syncSelectionUi();
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    manuallySelectedIds.clear();
-    syncSelectionUi();
-  });
+  window.addEventListener('keydown', clearAllChartSelection, { capture: true });
 }
 
 const data = await loadData();
